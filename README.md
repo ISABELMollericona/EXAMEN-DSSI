@@ -1,3 +1,29 @@
+**Evidencias / Capturas de pantalla**
+
+A continuación se presentan las capturas de pantalla del sistema funcionando:
+
+
+![Conexión BD 1](./images/Captura%20de%20pantalla%202025-11-24%20095910.png)
+
+
+
+![Consulta BD](./images/Captura%20de%20pantalla%202025-11-24%20100103.png)
+
+![Home - Lista de Estudiantes](./images/Captura%20de%20pantalla%202025-11-24%20100804.png)
+
+
+![Registrar Nota](./images/Captura%20de%20pantalla%202025-11-24%20100816.png)
+
+
+![Postman Estudiantes](./images/Captura%20de%20pantalla%202025-11-24%20182137.png)
+
+
+![Postman Notas](./images/Captura%20de%20pantalla%202025-11-24%20182154.png)
+
+----
+
+
+
 # Sistema de Registro de Notas — Especificaciones Técnicas
 
 Este repositorio contiene el backend y frontend del examen práctico "Registro de Notas" para la materia Desarrollo de Sistemas II.
@@ -184,3 +210,4 @@ Recomiendo crear un script `prisma/seed.js` o usar migraciones para insertar alg
 Ejemplo rápido (manual): insertar filas usando MySQL Workbench / línea de comandos en la base `examen_dsii`.
 
 ----
+
