@@ -184,22 +184,3 @@ Recomiendo crear un script `prisma/seed.js` o usar migraciones para insertar alg
 Ejemplo rápido (manual): insertar filas usando MySQL Workbench / línea de comandos en la base `examen_dsii`.
 
 ----
-
-**Postman / Pruebas rápidas**
-
-- Crea una colección con los 4 endpoints: `GET /estudiantes`, `GET /materias`, `POST /notas`, `GET /notas/estudiante/:id`.
-- Añade ejemplos de request/response y variables de entorno `baseUrl = http://localhost:3000`.
-
-Ejemplos cURL incluidos arriba.
-
-----
-
-**Despliegue (sugerencias)**
-
-- Backend: puede desplegarse en Heroku, Render, Railway o Azure App Service. Asegúrate de configurar la variable de entorno `DATABASE_URL` en el entorno de producción.
-- Base de datos: MySQL en un servicio gestionado (ClearDB, Amazon RDS, PlanetScale) o MySQL en un contenedor Docker.
-- Frontend: Vercel, Netlify o un hosting estático que sirva la app compilada (si usas Vite, `vite build`).
-
-SSL / CORS: el backend incluye `cors()` por defecto. En producción limita `origin` a tu dominio.
-
-----
