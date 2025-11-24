@@ -1,0 +1,128 @@
+{
+  "info": {
+    "name": "NotasApp",
+    "_postman_id": "8f3b9c2e-0000-4000-8000-000000000001",
+    "description": "Colección para probar la API y vistas de la app Flask (servir frontend/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:5000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "GET Estudiantes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/estudiantes",
+          "host": ["{{baseUrl}}"],
+          "path": ["estudiantes"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Materias",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/materias",
+          "host": ["{{baseUrl}}"],
+          "path": ["materias"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST Registrar Nota",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"estudiante_id\": 1,\n  \"materia_id\": 1,\n  \"nota\": 85.5\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/notas",
+          "host": ["{{baseUrl}}"],
+          "path": ["notas"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Notas Estudiante (JSON)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/notas/estudiante/1",
+          "host": ["{{baseUrl}}"],
+          "path": ["notas","estudiante","1"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Página principal (HTML)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/app",
+          "host": ["{{baseUrl}}"],
+          "path": ["app"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Registrar (HTML)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/app/registrar",
+          "host": ["{{baseUrl}}"],
+          "path": ["app","registrar"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Consultar (HTML)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/app/consultar?id=1",
+          "host": ["{{baseUrl}}"],
+          "path": ["app","consultar"],
+          "query": [
+            {
+              "key": "id",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

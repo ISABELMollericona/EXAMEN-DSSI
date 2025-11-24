@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registrar Nota</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/frontend/vue-like.css" rel="stylesheet">
+  </head>
+  <body>
+    <div id="app" class="vue-app">
+      <div class="topbar">
+        <div class="container d-flex justify-content-between align-items-center">
+          <div class="brand">Registro de Notas</div>
+          <div></div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="card">
+          <a href="/app" class="back-link">← Volver</a>
+          <h2 class="header-title">Registrar Nota</h2>
+          <div class="small-muted">Captura la nota del estudiante</div>
+
+          <div id="msg" style="margin-top:12px"></div>
+
+          <form id="form">
+            <div class="mb-3">
+              <label class="form-label">Estudiante</label>
+              <select id="estSelect" class="form-select"></select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Materia</label>
+              <select id="matSelect" class="form-select"></select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Nota</label>
+              <input id="nota" type="number" step="0.01" min="0" max="100" class="form-control" required>
+            </div>
+            <button class="btn btn-primary">Guardar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    async function loadOptions(){
+      const eRes = await fetch('/estudiantes');
+      const mRes = await fetch('/materias');
+      const est = await eRes.json();
+      const mat = await mRes.json();
+      const estSel = document.getElementById('estSelect');
+      const matSel = document.getElementById('matSelect');
+      estSel.innerHTML = '';
+      matSel.innerHTML = '';
+      est.forEach(e => estSel.innerHTML += `<option value="${e[0]}">${e[1]}</option>`);
+      mat.forEach(m => matSel.innerHTML += `<option value="${m[0]}">${m[1]}</option>`);
+
+      // si viene ?est= preseleccionar
+      const params = new URLSearchParams(location.search);
+      if(params.get('est')) estSel.value = params.get('est');
+    }
+    loadOptions();
+
+    document.getElementById('form').onsubmit = async function(e){
+      e.preventDefault();
+      const estudiante_id = document.getElementById('estSelect').value;
+      const materia_id = document.getElementById('matSelect').value;
+      const nota = document.getElementById('nota').value;
+      // validación simple
+      if(nota === '' || isNaN(nota) || nota < 0 || nota > 100){
+        document.getElementById('msg').innerHTML = '<div class="alert alert-danger">La nota debe ser un número entre 0 y 100</div>';
+        return;
+      }
+      const res = await fetch('/notas', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({estudiante_id, materia_id, nota})});
+      const data = await res.json();
+      if(res.ok){
+        document.getElementById('msg').innerHTML = '<div class="alert alert-success">' + data.message + '</div>';
+        document.getElementById('nota').value = '';
+      } else {
+        document.getElementById('msg').innerHTML = '<div class="alert alert-danger">' + (data.error || 'Error') + '</div>';
+      }
+    };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Consultar Notas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/frontend/vue-like.css" rel="stylesheet">
+  </head>
+  <body>
+    <div id="app" class="vue-app">
+      <div class="topbar">
+        <div class="container d-flex justify-content-between align-items-center">
+          <div class="brand">Registro de Notas</div>
+          <div></div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="card">
+          <a href="/app" class="back-link">← Volver</a>
+          <h2 class="header-title">Notas del estudiante</h2>
+          <div id="info" class="small-muted" style="margin-top:6px"></div>
+          <div id="contenido" style="margin-top:12px"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    async function load(){
+      const params = new URLSearchParams(location.search);
+      const id = params.get('id');
+      if(!id){ document.getElementById('contenido').innerHTML = '<div class="alert alert-warning">No se indicó estudiante</div>'; return; }
+
+      // obtener estudiantes para mostrar nombre
+      const eRes = await fetch('/estudiantes');
+      const estudiantes = await eRes.json();
+      const estudiante = estudiantes.find(s => String(s[0]) === String(id));
+      document.getElementById('info').innerHTML = `${estudiante ? estudiante[1] : 'Estudiante'}`;
+
+      const res = await fetch(`/notas/estudiante/${id}`);
+      if(!res.ok){ document.getElementById('contenido').innerHTML = '<div class="alert alert-danger">Error al consultar notas</div>'; return; }
+      const data = await res.json();
+      const notas = data.notas || [];
+      let html = '';
+      html += '<table class="table"><thead><tr><th>Materia</th><th>Nota</th></tr></thead><tbody>';
+      notas.forEach(n => html += `<tr><td>${n[1]}</td><td>${n[0]}</td></tr>`);
+      html += '</tbody></table>';
+      html += `<div class="fw-bold">Promedio: ${data.promedio !== null ? Number(data.promedio).toFixed(2) : 'N/A'}</div>`;
+      document.getElementById('contenido').innerHTML = html;
+    }
+    load();
+    </script>
+  </body>
+</html>
